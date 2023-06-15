@@ -3,11 +3,11 @@ NORMAL DECORATION CSS
  */
 
 .base-pane{
-    -fx-background-color: #525252;
+    -fx-background-color: #3d3d3d;
 }
 
 .title-bar{
-    -fx-background-color: #525252;
+    -fx-background-color: #3d3d3d;
 }
 
 /**
