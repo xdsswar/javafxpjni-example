@@ -1,9 +1,11 @@
 package org.jni.example;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.jni.example.controllers.NormalDecorationContentController;
 import org.jni.example.decorations.NormalDecoration;
 import xss.it.javafx.JavaFxJni;
@@ -54,7 +56,15 @@ public class Demo extends Application {
 
 
         stage.setScene(scene);
+
+        /*
+         * If the stage flicker on shown , this hack hides it
+         */
+        stage.setOpacity(0);
+        PauseTransition pt=new PauseTransition(Duration.millis(100));
+        pt.setOnFinished(event -> stage.setOpacity(1d));
         stage.show();
+        pt.play();
     }
 
 
