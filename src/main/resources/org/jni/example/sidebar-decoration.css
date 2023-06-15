@@ -1,0 +1,38 @@
+
+.title-bar{
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-min-height: 30;
+}
+
+.decoration{
+    -fx-background-color: transparent;
+}
+
+.sidebar{
+    -fx-background-color: #135b60;
+}
+
+
+.right-pane{
+    -fx-background-color: #3d3d3d;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

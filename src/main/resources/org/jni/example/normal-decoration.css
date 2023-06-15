@@ -1,0 +1,14 @@
+.title{
+    -fx-font-size: 13;
+    -fx-font-family: "Segoe UI";
+}
+
+.title-bar{
+    -fx-background-color: #F6F4F0;
+    -fx-border-width: 0;
+    -fx-min-height: 30;
+}
+
+.decoration{
+    -fx-background-color: #F6F4F0;
+}
