@@ -1,5 +1,5 @@
 ## JavaFX custom Stage decoration example
-
+## WINDOWS ONLY FOR NOW
 ### Inside the libs folder is the jar you need to implement your own decoration, just look at the example and be creative. 
 
 
