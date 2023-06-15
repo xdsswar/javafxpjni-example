@@ -12,7 +12,7 @@ import java.util.ResourceBundle;
  * @author XDSSWAR
  * Created on 06/15/2023
  */
-public class ContentController implements Initializable {
+public class NormalDecorationContentController implements Initializable {
     @FXML
     private Button btn;
 
@@ -23,7 +23,7 @@ public class ContentController implements Initializable {
      * Constructor
      * @param decoration NormalDecoration
      */
-    public ContentController(NormalDecoration decoration) {
+    public NormalDecorationContentController(NormalDecoration decoration) {
         this.decoration = decoration;
     }
 

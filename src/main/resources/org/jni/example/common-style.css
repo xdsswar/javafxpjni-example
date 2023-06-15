@@ -1,0 +1,30 @@
+/*
+NORMAL DECORATION CSS
+ */
+
+.base-pane{
+    -fx-background-color: #525252;
+}
+
+.title-bar{
+    -fx-background-color: #525252;
+}
+
+/**
+  DO NOT MESS WITH THE TITLE COLOR, IST AUTOMATIC BASED IN THE BACKGROUND,
+  JUST YOU CAN SET FONT STUFF LIKE SIZE, WEIGHT , SPACING, ETC, ANYTHING BUT NOT COLORS
+ */
+.title{
+    -fx-font-size: 16;
+    -fx-font-weight: 700;
+}
+
+/*
+========================================================================================================================
+ */
+
+/*
+SIDEBAR DECORATION CSS
+ */
+
+

@@ -1,10 +1,9 @@
-package xss.it.javafx.control;
+package org.jni.example.decorations;
 
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -13,10 +12,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import xss.it.javafx.JavaFxJni;
+import org.jni.example.Assets;
+import xss.it.javafx.control.ActionButtons;
 import xss.it.javafx.util.ColorUtil;
 import xss.it.javafx.util.HitSpot;
-import xss.it.javafx.util.RestartableTimer;
 
 import java.util.List;
 
@@ -30,11 +29,12 @@ public final class NormalDecoration extends AnchorPane {
     private final Label title;
     private final ActionButtons actionBox;
     private final StackPane content;
-    private static final String STYLE_SHEET = JavaFxJni.load("/normal-decoration.css").toExternalForm();
-    private RestartableTimer timer;
+    private static final String STYLE_SHEET = Assets.load("/org/jni/example/normal-decoration.css").toExternalForm();
     private final Stage stage;
     private final BooleanProperty titleCentered=new SimpleBooleanProperty(false);
     private final IntegerProperty titleBarHeight=new SimpleIntegerProperty(30);
+    private final ObjectProperty<Parent> decorationContent=new SimpleObjectProperty<>();
+    private final ObservableList<String> styles= FXCollections.observableArrayList();
 
     /**
      * Constructs a new NormalDecoration object for the specified DecoratedStage.
@@ -62,7 +62,7 @@ public final class NormalDecoration extends AnchorPane {
         AnchorPane.setLeftAnchor(header, 0.0);
         AnchorPane.setRightAnchor(header, 0.0);
         AnchorPane.setTopAnchor(header, 0.0);
-        header.setAlignment(Pos.TOP_CENTER);
+        header.setAlignment(Pos.CENTER);
         header.setPrefHeight(titleBarHeight.getValue());
         header.setMinHeight(30d);
         header.getStyleClass().add("title-bar");
@@ -72,7 +72,9 @@ public final class NormalDecoration extends AnchorPane {
         icon.setPickOnBounds(true);
         icon.setPreserveRatio(true);
         HBox.setMargin(icon, new Insets(0.0, 0.0, 0.0, 5.0));
-        icon.setImage(stage.getIcons().get(stage.getIcons().size() - 1));
+        if (stage.getIcons().size()>0) {
+            icon.setImage(stage.getIcons().get(stage.getIcons().size() - 1));
+        }
 
         title.setPrefWidth(10000d);
         title.getStyleClass().add("title");
@@ -125,6 +127,21 @@ public final class NormalDecoration extends AnchorPane {
 
         titleCentered.addListener((observable, oldValue, newValue) -> handleTitleAlignment(newValue));
         handleTitleAlignment(titleCentered.get());
+
+        decorationContent.addListener((observable, oldValue, root) -> {
+            if (root!=null){
+                getStylesheets().removeAll(styles);
+                styles.clear();
+                styles.setAll(root.getStylesheets());
+                content.getChildren().clear();
+                attach(root);
+                getStylesheets().addAll(styles);
+
+                //If you have css issues , comment this line below
+                root.getStylesheets().clear();
+                content.getChildren().add(root);
+            }
+        });
     }
 
 
@@ -135,9 +152,7 @@ public final class NormalDecoration extends AnchorPane {
      * @param root The Parent object representing the content to be set.
      */
     public void setContent(Parent root){
-        content.getChildren().clear();
-        attach(root);
-        content.getChildren().add(root);
+        decorationContent.set(root);
     }
 
     /**
@@ -165,6 +180,25 @@ public final class NormalDecoration extends AnchorPane {
     }
 
     /**
+     * Returns a boolean indicating whether the title is centered.
+     *
+     * @return true if the title is centered, false otherwise
+     */
+    public boolean isTitleCentered() {
+        return titleCentered.get();
+    }
+
+    /**
+     * Returns a read-only boolean property representing the centered state of the title.
+     *
+     * @return the read-only boolean property for the title centered state
+     */
+    public ReadOnlyBooleanProperty titleCenteredProperty() {
+        return titleCentered;
+    }
+
+
+    /**
      * Sets the height of the title bar.
      *
      * @param titleBarHeight the height to set for the title bar
@@ -172,6 +206,25 @@ public final class NormalDecoration extends AnchorPane {
     public void setTitleBarHeight(int titleBarHeight) {
         this.titleBarHeight.set(titleBarHeight);
     }
+
+    /**
+     * Returns the height of the title bar.
+     *
+     * @return the height of the title bar
+     */
+    public int getTitleBarHeight() {
+        return titleBarHeight.get();
+    }
+
+    /**
+     * Returns an ReadOnlyIntegerProperty representing the height of the title bar.
+     *
+     * @return the ReadOnlyIntegerProperty for the title bar height
+     */
+    public ReadOnlyIntegerProperty titleBarHeightProperty() {
+        return titleBarHeight;
+    }
+
 
     /**
      * Handles the alignment of the title based on the specified center flag.
@@ -190,7 +243,7 @@ public final class NormalDecoration extends AnchorPane {
 
     /**
      * Processes the background and applies contrast styling to specific elements.
-     *
+     * THIS METHOD IS VERY IMPORTANT, IT HANDLES THE SHAPES FILL COLORS FOR THE ACTION BUTTONS (MINIMIZE, MAX/RESTORE, CLOSE)
      * @param background the background to process
      */
      public void processBg(Background background){
