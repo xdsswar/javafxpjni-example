@@ -41,7 +41,7 @@ public class Demo extends Application {
         decorator.setHitSpots(normalDec.getHistSpots());
 
         //Center title if you want
-        normalDec.centerTitle(true);
+        //normalDec.centerTitle(true);
 
         //Load Fxml content. Note we pass the normalDec as parameter to the controller in case we need it
         Parent content=Assets.load("/org/jni/example/fxml/normal-content.fxml",new NormalDecorationContentController(normalDec));

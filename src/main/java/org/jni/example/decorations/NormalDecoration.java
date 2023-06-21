@@ -42,13 +42,13 @@ public final class NormalDecoration extends AnchorPane {
      * @param stage the DecoratedStage to associate with the NormalDecoration
      */
     public NormalDecoration(Stage stage) {
+        super();
         this.stage=stage;
         header = new HBox();
         icon = new ImageView();
         title = new Label();
         actionBox = new ActionButtons();
         content = new StackPane();
-
         initialize();
     }
 
@@ -58,7 +58,6 @@ public final class NormalDecoration extends AnchorPane {
      */
     private void initialize() {
         getStylesheets().add(STYLE_SHEET);
-
         AnchorPane.setLeftAnchor(header, 0.0);
         AnchorPane.setRightAnchor(header, 0.0);
         AnchorPane.setTopAnchor(header, 0.0);

@@ -15,8 +15,7 @@ NORMAL DECORATION CSS
   JUST YOU CAN SET FONT STUFF LIKE SIZE, WEIGHT , SPACING, ETC, ANYTHING BUT NOT COLORS
  */
 .title{
-    -fx-font-size: 16;
-    -fx-font-weight: 700;
+    -fx-font-weight: 600;
 }
 
 
