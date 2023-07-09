@@ -42,4 +42,4 @@
 
  This code is not fully tested, If you have any suggestion or Idea feel free to Issue/Pull request.
 
-* Discord Server [Programming World](https://discord.gg/zDDPS46Qfr)
+* Discord Server [Programming World](https://discord.gg/Au6Em2eFue)
